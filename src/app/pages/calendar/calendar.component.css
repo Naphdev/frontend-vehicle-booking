@@ -1,0 +1,182 @@
+.calendar-container {
+  padding: 20px;
+  position: relative;
+}
+
+.custom-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+}
+
+.custom-modal-card {
+  background: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Status dot styles */
+.status-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  min-width: 10px;
+  background: currentColor;
+}
+
+
+full-calendar {
+  display: block;
+  margin-top: 30px;
+  margin-left: auto;
+  width: 70%;
+  padding: 20px;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.line {
+  width: 2px;
+  height: 15px;
+  background: #ccc;
+  margin-left: 13px;
+}
+
+.card-header {
+  border-bottom: 0;
+  background: linear-gradient(
+      130deg,
+      rgba(238, 120, 34, 0.92),
+      rgba(90, 111, 135, 0.92)
+    ),
+    radial-gradient(
+      rgba(255, 255, 255, 0.35),
+      transparent 55%
+    );
+}
+
+.close-btn {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  background: linear-gradient(90deg, rgba(106, 131, 160, 1), rgba(69, 69, 69, 1));
+}
+
+
+/* Calendar legend styles */
+  .calendar-legend {
+  font-size: 14px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+
+.legend-dot.pending {
+  background: #ffc107;
+}
+
+.legend-dot.approved {
+  background: #28a745;
+}
+
+.legend-dot.cancelled {
+  background: #dc3545;
+}
+
+.legend-dot.completed {
+  background: #6c757d;
+} 
+
+.btn-new-event {
+  background: #1e293b;
+}
+
+/* =========dashboard layout========== */
+.dashboard-layout {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background: #1e293b;
+  /* background: #ffffff; */
+  color: rgb(255, 255, 255);
+  padding: 20px;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+}
+
+.menu li {
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.menu li:hover {
+  background: rgba(255,255,255,0.1);
+  /* background: #ff8c00; */
+}
+
+.menu .active {
+  background: #3b82f6;
+  /* background: #ff8c00; */
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background: #f8fafc;
+  overflow-y: auto;
+}
+
+full-calendar {
+  display: block;
+  width: 100%;
+}
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

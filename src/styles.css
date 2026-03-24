@@ -1,1 +1,55 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+
+body {
+  margin: 0;
+  font-family: 'Kanit' !important;
+  background: #ffffff;
+  letter-spacing: -.02em;
+  line-height: 36px !important;
+  font-weight: 500 !important;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+/*-------------------------- Calendar --------------------------*/
+
+
+.fc a {
+  color: black !important;
+}
+
+.fc-col-header-cell a,
+.fc-daygrid-day-number {
+  text-decoration: none;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+  background-color: #fff3cd;
+}
+
+.fc-daygrid-day:hover {
+  background: #f8f9fa;
+  cursor: pointer;
+}
+
+.fc .fc-toolbar .fc-toolbar-title {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* .fc-day-other .fc-event,
+.fc-day-other .fc-daygrid-more-link {
+  pointer-events: none;
+  opacity: 0.5;
+} */
+
+
+
