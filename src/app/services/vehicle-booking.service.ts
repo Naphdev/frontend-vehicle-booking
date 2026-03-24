@@ -382,25 +382,4 @@ export class VehicleBookingService {
 
 
 
-
-  // updateBooking(id: string, payload: Partial<Booking>): Observable<IBaseSingleResult<Booking>> {
-  //   const index = this.mockBookings.findIndex(b => b.id === id);
-
-  //   if (index !== -1) {
-  //     this.mockBookings[index] = { ...this.mockBookings[index], ...payload };
-  //   }
-
-  //   return of({ data: this.mockBookings[index] } as IBaseSingleResult<Booking>);
-  // }
-
-  // deleteBooking(id: string): Observable<IBaseSingleResult<boolean>> {
-  //   const index = this.mockBookings.findIndex(b => b.id === id);
-
-  //   if (index !== -1) {
-  //     this.mockBookings.splice(index, 1);
-  //     return of({ data: true } as IBaseSingleResult<boolean>);
-  //   }
-
-  //   return of({ data: false } as IBaseSingleResult<boolean>);
-  // }
 }
