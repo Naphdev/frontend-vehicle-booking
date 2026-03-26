@@ -89,6 +89,16 @@ export class NewBookingComponentComponent {
       return;
     }
 
+    if (this.form.startDate > this.form.endDate) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'วันที่เริ่มต้นต้องน้อยกว่าวันที่สิ้นสุด',
+        showConfirmButton: true,
+        confirmButtonText: 'OK'
+      });
+      return;
+    }
+
     // convert date
     const payload = {
       ...this.form,
@@ -143,5 +153,11 @@ export class NewBookingComponentComponent {
       }
     });
   }
+
+
+  back(): void {
+    this.router.navigate(['/calendar']);
+  }
 }
+
 

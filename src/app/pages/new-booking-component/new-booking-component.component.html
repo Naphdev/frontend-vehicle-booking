@@ -1,190 +1,201 @@
-<div class="container mt-4">
-  <h3 class="card-title">Create Booking</h3>
-  <div class="card">
-    <form (ngSubmit)="submit()">
-      <!-- Title -->
-      <div class="mb-3">
-        <label>Title</label>
-        <input
-          class="form-control"
-          [(ngModel)]="form.title"
-          name="title"
-          required
-          placeholder="ไปประชุมลูกค้า"
-        />
-      </div>
+<div class="dashboard-layout">
+  <app-sidebar></app-sidebar>
 
-      <!-- Vehicle -->
-      <div class="mb-3">
-        <label>Vehicle</label>
-        <select
-          class="form-select"
-          [(ngModel)]="form.vehicleId"
-          name="vehicleId"
-          required
-        >
-          <option [ngValue]="null">เลือกยานพาหนะ</option>
-          <option *ngFor="let v of vehicles" [value]="v.id">
-            {{ v.brand }} {{ v.model }} ({{ v.licensePlate }})
-          </option>
-        </select>
-      </div>
-
-      <!-- Driver -->
-      <div class="mb-3">
-        <label>Driver</label>
-        <select
-          class="form-select"
-          [(ngModel)]="form.driverId"
-          name="driverId"
-          required
-        >
-          <option [ngValue]="null">เลือกคนขับ</option>
-          <option *ngFor="let d of drivers" [value]="d.id">
-            {{ d.name }}
-          </option>
-        </select>
-      </div>
-
-      <!-- bookedByUserId -->
-      <div class="mb-3">
-        <label>bookedByUserId</label>
-        <select
-          class="form-select"
-          [(ngModel)]="form.bookedByUserId"
-          name="bookedByUserId"
-          required
-        >
-          <option [ngValue]="null">เลือกผู้จอง</option>
-          <option *ngFor="let u of users" [value]="u.id">
-            {{ u.name }}
-          </option>
-        </select>
-      </div>
-
-      <!-- Purpose -->
-      <div class="mb-3">
-        <label>Purpose</label>
-        <input
-          class="form-control"
-          [(ngModel)]="form.purpose"
-          name="purpose"
-          required
-          placeholder="ประชุม, ส่งเอกสาร"
-        />
-      </div>
-
-      <!-- Route -->
-      <div class="mb-3">
-        <label>Origin</label>
-        <input
-          class="form-control"
-          [(ngModel)]="form.origin"
-          name="origin"
-          placeholder="สถานีจุด A"
-          required
-        />
-      </div>
-
-      <div class="mb-3">
-        <label>Destination</label>
-        <input
-          class="form-control"
-          [(ngModel)]="form.destination"
-          name="destination"
-          required
-          placeholder="สถานีจุด B"
-        />
-      </div>
-
-      <!-- Trip Type -->
-      <div class="mb-3">
-        <label>Trip Type</label>
-        <select
-          class="form-select"
-          [(ngModel)]="form.tripType"
-          name="tripType"
-          (change)="onTripTypeChange()"
-        >
-          <option *ngFor="let tripType of tripTypeList" [ngValue]="tripType">
-            {{ tripType }}
-          </option>
-        </select>
-      </div>
-
-      <!-- Stops (เฉพาะ multi) -->
-      <div *ngIf="form.tripType === 'multi-stop'" class="mb-3">
-        <label>Stops</label>
-
-        <div
-          *ngFor="let stop of form.stops; let i = index"
-          class="d-flex gap-2 mb-2"
-        >
-        <div class="fw-semibold">{{ i + 1 }}</div>
+  <div class="container mt-4">
+    <button type="button" class="btn btn-outline-secondary" (click)="back()">
+      <i class="fas fa-arrow-left"></i> Back
+    </button>
+    <h3 class="card-title">Create Booking</h3>
+    <div class="card">
+      <form (ngSubmit)="submit()">
+        <!-- Title -->
+        <div class="mb-3">
+          <label>Title <span class="text-danger">*</span></label>
           <input
             class="form-control"
-            [(ngModel)]="stop.name"
-            name="stop{{ i }}"
+            [(ngModel)]="form.title"
+            name="title"
+            required
+            placeholder="ไปประชุมลูกค้า"
           />
-          <button type="button" class="btn btn-danger" (click)="removeStop(i)">
-            X
+        </div>
+
+        <!-- Vehicle -->
+        <div class="mb-3">
+          <label>Vehicle <span class="text-danger">*</span></label>
+          <select
+            class="form-select"
+            [(ngModel)]="form.vehicleId"
+            name="vehicleId"
+            required
+          >
+            <option [ngValue]="null">เลือกยานพาหนะ</option>
+            <option *ngFor="let v of vehicles" [value]="v.id">
+              {{ v.brand }} {{ v.model }} ({{ v.licensePlate }})
+            </option>
+          </select>
+        </div>
+
+        <!-- Driver -->
+        <div class="mb-3">
+          <label>Driver</label>
+          <select
+            class="form-select"
+            [(ngModel)]="form.driverId"
+            name="driverId"
+            required
+          >
+            <option [ngValue]="null">เลือกคนขับ</option>
+            <option *ngFor="let d of drivers" [value]="d.id">
+              {{ d.name }}
+            </option>
+          </select>
+        </div>
+
+        <!-- bookedByUserId -->
+        <div class="mb-3">
+          <label>bookedByUserId <span class="text-danger">*</span></label>
+          <select
+            class="form-select"
+            [(ngModel)]="form.bookedByUserId"
+            name="bookedByUserId"
+            required
+          >
+            <option [ngValue]="null">เลือกผู้จอง</option>
+            <option *ngFor="let u of users" [value]="u.id">
+              {{ u.name }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Purpose -->
+        <div class="mb-3">
+          <label>Purpose <span class="text-danger">*</span></label>
+          <input
+            class="form-control"
+            [(ngModel)]="form.purpose"
+            name="purpose"
+            required
+            placeholder="ประชุม, ส่งเอกสาร"
+          />
+        </div>
+
+        <!-- Route -->
+        <div class="mb-3">
+          <label>Origin <span class="text-danger">*</span></label>
+          <input
+            class="form-control"
+            [(ngModel)]="form.origin"
+            name="origin"
+            placeholder="สถานีจุด A"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label>Destination <span class="text-danger">*</span></label>
+          <input
+            class="form-control"
+            [(ngModel)]="form.destination"
+            name="destination"
+            required
+            placeholder="สถานีจุด B"
+          />
+        </div>
+
+        <!-- Trip Type -->
+        <div class="mb-3">
+          <label>Trip Type <span class="text-danger">*</span></label>
+          <select
+            class="form-select"
+            [(ngModel)]="form.tripType"
+            name="tripType"
+            (change)="onTripTypeChange()"
+          >
+            <option *ngFor="let tripType of tripTypeList" [ngValue]="tripType">
+              {{ tripType }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Stops (เฉพาะ multi) -->
+        <div *ngIf="form.tripType === 'multi-stop'" class="mb-3">
+          <label>Stops <span class="text-danger">*</span></label>
+
+          <div
+            *ngFor="let stop of form.stops; let i = index"
+            class="d-flex gap-2 mb-2"
+          >
+            <div class="fw-semibold">{{ i + 1 }}</div>
+            <input
+              class="form-control"
+              [(ngModel)]="stop.name"
+              name="stop{{ i }}"
+            />
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="removeStop(i)"
+            >
+              X
+            </button>
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-outline-primary btn-sm mt-2 ms-1"
+            (click)="addStop()"
+          >
+            + Add Stop
           </button>
         </div>
 
-        <button
-          type="button"
-          class="btn btn-outline-primary btn-sm mt-2 ms-1"
-          (click)="addStop()"
-        >
-          + Add Stop
-        </button>
-      </div>
+        <!-- Date -->
+        <div class="mb-3">
+          <label>Start Date <span class="text-danger">*</span></label>
+          <input
+            type="datetime-local"
+            class="form-control"
+            [(ngModel)]="form.startDate"
+            name="startDate"
+            required
+          />
+        </div>
 
-      <!-- Date -->
-      <div class="mb-3">
-        <label>Start Date</label>
-        <input
-          type="datetime-local"
-          class="form-control"
-          [(ngModel)]="form.startDate"
-          name="startDate"
-          required
-        />
-      </div>
+        <div class="mb-3">
+          <label>End Date <span class="text-danger">*</span></label>
+          <input
+            type="datetime-local"
+            class="form-control"
+            [(ngModel)]="form.endDate"
+            name="endDate"
+            required
+          />
+        </div>
 
-      <div class="mb-3">
-        <label>End Date</label>
-        <input
-          type="datetime-local"
-          class="form-control"
-          [(ngModel)]="form.endDate"
-          name="endDate"
-          required
-        />
-      </div>
+        <div class="mb-3">
+          <label>Status</label>
+          <select
+            class="form-select"
+            [(ngModel)]="form.status"
+            name="status"
+            required
+          >
+            <option *ngFor="let status of statusList" [ngValue]="status">
+              {{ status }}
+            </option>
+          </select>
+        </div>
 
-      <div class="mb-3">
-        <label>Status</label>
-        <select
-          class="form-select"
-          [(ngModel)]="form.status"
-          name="status"
-          required
-        >
-          <option *ngFor="let status of statusList" [ngValue]="status">
-            {{ status }}
-          </option>
-        </select>
-      </div>
-
-      <div class="d-flex justify-content-between align-items-center">
-        <button type="button" class="btn btn-danger" (click)="cancel()">
-          Cancel
-        </button>
-        <button class="btn btn-primary d-block ms-auto" [disabled]="loading">
-          {{ loading ? 'กำลังบันทึก...' : 'Create' }}
-        </button>
-      </div>
-    </form>
+        <div class="d-flex justify-content-between align-items-center">
+          <button type="button" class="btn btn-danger" (click)="cancel()">
+            Cancel
+          </button>
+          <button class="btn btn-primary d-block ms-auto" [disabled]="loading">
+            {{ loading ? "กำลังบันทึก..." : "Create" }}
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

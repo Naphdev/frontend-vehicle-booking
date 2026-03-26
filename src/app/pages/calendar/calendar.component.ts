@@ -15,8 +15,10 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css']
+  styleUrls: ['./calendar.component.css'],
 })
+
+
 export class CalendarComponent implements OnInit {
   vehicles: Vehicle[] = [];
   drivers: Driver[] = [];
@@ -273,9 +275,6 @@ export class CalendarComponent implements OnInit {
     if (!this.selectedBooking) return;
     const bookingId = this.selectedBooking.id;
 
-    // console.log('Saving edit:', this.editForm);
-
-
     if (this.editForm.startDate > this.editForm.endDate) {
       Swal.fire({
         icon: 'error',
@@ -343,10 +342,10 @@ export class CalendarComponent implements OnInit {
   cancelEdit() {
     Swal.fire({
       icon: 'warning',
-      title: 'คุณต้องการยกเลิกการจองนี้?',
-      text: 'คุณจะไม่สามารถกู้คืนการจองนี้ได้',
+      title: 'คุณต้องการยกเลิกการแก้ไข?',
+      text: 'คุณจะไม่สามารถกู้คืนการแก้ไขนี้ได้',
       showCancelButton: true,
-      confirmButtonText: 'ใช่, ยกเลิกการจอง',
+      confirmButtonText: 'ใช่, ยกเลิกการแก้ไข',
       cancelButtonText: 'ไม่, ดำเนินการต่อ'
     }).then((result) => {
       if (result.isConfirmed) {

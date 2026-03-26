@@ -19,3 +19,16 @@
   color: #333;
   letter-spacing: 1px;
 }
+
+/* =========dashboard layout========== */
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+/* ====== */
+
+@media (min-width: 768px) {
+  .btn-outline-secondary {
+    display: none;
+  }
+}

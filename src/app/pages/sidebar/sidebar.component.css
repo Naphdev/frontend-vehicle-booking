@@ -1,0 +1,42 @@
+
+/* =========dashboard layout========== */
+.dashboard-layout {
+  display: flex;
+  position: sticky;
+  top: 0;          
+  min-height: 100vh;   
+}
+
+.sidebar {
+  width: 240px;
+  background: #1e293b;
+  color: rgb(255, 255, 255);
+  padding: 20px;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+}
+
+.menu li {
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.menu li:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.menu .active {
+  background: #3b82f6;
+}
+/* ======= */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+

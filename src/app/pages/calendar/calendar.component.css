@@ -115,43 +115,15 @@ full-calendar {
 /* =========dashboard layout========== */
 .dashboard-layout {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 }
+/* ====== */
 
-.sidebar {
-  width: 240px;
-  background: #1e293b;
-  /* background: #ffffff; */
-  color: rgb(255, 255, 255);
-  padding: 20px;
-}
-
-.menu {
-  list-style: none;
-  padding: 0;
-}
-
-.menu li {
-  padding: 10px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.menu li:hover {
-  background: rgba(255,255,255,0.1);
-  /* background: #ff8c00; */
-}
-
-.menu .active {
-  background: #3b82f6;
-  /* background: #ff8c00; */
-}
 
 .main-content {
   flex: 1;
   padding: 20px;
   background: #f8fafc;
-  overflow-y: auto;
 }
 
 full-calendar {

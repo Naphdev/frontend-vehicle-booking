@@ -1,13 +1,6 @@
 <div class="dashboard-layout">
-  <div class="sidebar">
-    <h4 class="mb-4">Dashboard</h4>
+  <app-sidebar></app-sidebar>
 
-    <ul class="menu">
-      <li><i class="fas fa-tachometer-alt"></i> Dashboard</li>
-      <li class="active"><i class="fas fa-calendar"></i> Calendar</li>
-      <li><i class="fas fa-list"></i> Events</li>
-    </ul>
-  </div>
 
   <div class="main-content">
     <div class="calendar-container">
@@ -48,6 +41,8 @@
         [options]="calendarOptions"
         [deepChangeDetection]="true"
       ></full-calendar>
+
+      
       <!-- Overlay -->
       <div class="custom-modal-backdrop" *ngIf="selectedBooking as booking">
         <div class="custom-modal-card shadow-lg">

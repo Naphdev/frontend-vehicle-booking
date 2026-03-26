@@ -1,0 +1,14 @@
+<div class="dashboard-layout">
+  <div class="sidebar">
+    <h4 class="mb-4">Dashboard</h4>
+
+    <ul class="menu">
+      <li routerLink="/calendar" [class.active]="isActive('/calendar')">
+        <i class="fas fa-calendar"></i> Calendar
+      </li>
+      <li routerLink="/bookings/new" [class.active]="isActive('/bookings/new')">
+        <i class="fas fa-plus"></i> New Event
+      </li>
+    </ul>
+  </div>
+</div>
