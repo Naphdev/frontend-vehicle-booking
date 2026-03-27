@@ -249,7 +249,6 @@ export class CalendarComponent implements OnInit {
 
       vehicleId: this.selectedBooking.vehicleId?.id ?? null,
       driverId: this.selectedBooking.driverId?.id ?? null,
-      bookedByUserId: this.selectedBooking.bookedByUserId?.id ?? null,
 
       purpose: this.selectedBooking.purpose ?? '',
       origin: this.selectedBooking.origin ?? '',

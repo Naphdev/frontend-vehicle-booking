@@ -183,22 +183,12 @@
                 </div>
                 <div>
                   <div><strong>Booked By</strong></div>
-                  <div *ngIf="!isEditMode">
+                  <div>
                     {{ selectedBookedByUser?.name || "No user assigned" }} ({{
                       selectedBookedByUser?.phone || ""
                     }})
                   </div>
 
-                  <select
-                    *ngIf="isEditMode"
-                    class="form-select"
-                    [(ngModel)]="editForm.bookedByUserId"
-                  >
-                    <option [ngValue]="null">-- No User --</option>
-                    <option *ngFor="let u of users" [ngValue]="u.id">
-                      {{ u.name }} ({{ u.phone }})
-                    </option>
-                  </select>
                 </div>
               </div>
 
