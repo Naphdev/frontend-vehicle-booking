@@ -73,8 +73,8 @@ export class NewBookingComponentComponent {
       Swal.fire({
         icon: 'warning',
         title: 'กรุณากรอกข้อมูลให้ครบ',
-        showConfirmButton: false,
-        timer: 1500
+        showConfirmButton: true,
+        confirmButtonText: 'OK'
       });
       return;
     }
@@ -83,8 +83,8 @@ export class NewBookingComponentComponent {
       Swal.fire({
         icon: 'warning',
         title: 'Multi-stop ต้องมี stops(จุดแวะระหว่างทาง)',
-        showConfirmButton: false,
-        timer: 1500
+        showConfirmButton: true,
+        confirmButtonText: 'OK'
       });
       return;
     }
