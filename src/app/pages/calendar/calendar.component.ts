@@ -74,6 +74,7 @@ export class CalendarComponent implements OnInit {
     dayMaxEvents: true,
     weekends: true,
     eventClick: (info) => this.handleEventClick(info),
+    dateClick: this.handleDateClick.bind(this),
     // eventDrop: (info) => this.handleEventDrop(info),
     // eventResize: (info) => this.handleEventResize(info),
     events: []
@@ -129,6 +130,37 @@ export class CalendarComponent implements OnInit {
     document.querySelector('.fc-popover')?.remove();
   }
 
+  handleDateClick(clickInfo: any) {
+    console.log('Date clicked:', clickInfo.dateStr);
+
+    const selectedDate = new Date(clickInfo.dateStr);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // ปรับเวลาเป็นเที่ยงคืนเพื่อเปรียบเทียบแค่วัน
+
+    if (selectedDate < today) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'ไม่สามารถจองวันที่ผ่านมาได้',
+        text: 'กรุณาเลือกวันที่ตั้งแต่วันนี้เป็นต้นไป',
+        confirmButtonText: 'OK'
+      });
+      return;
+    }
+
+    Swal.fire({
+      icon: 'info',
+      title: 'จองรถใหม่',
+      text: `คุณต้องการจองรถวัน ${clickInfo.dateStr} หรือไม่?`,
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/bookings/new'], { queryParams: { date: clickInfo.dateStr } });
+      }
+    });
+    this.closeMorePopover();
+  }
 
 
   handleEventClick(clickInfo: any) {

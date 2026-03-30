@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import Swal from 'sweetalert2';
 import { BookingStatus, TripType } from 'src/app/models/booking.model';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -15,6 +16,7 @@ import { BookingStatus, TripType } from 'src/app/models/booking.model';
 export class NewBookingComponentComponent {
 
   constructor(private bookingService: VehicleBookingService,
+    private route: ActivatedRoute,
     private router: Router
   ) { }
   form: any = {
@@ -35,6 +37,7 @@ export class NewBookingComponentComponent {
   statusList = Object.values(BookingStatus);
   tripTypeList = Object.values(TripType);
 
+  
 
   loading: boolean = false;
 
@@ -44,6 +47,18 @@ export class NewBookingComponentComponent {
 
   ngOnInit() {
     this.loadDropdowns();
+
+    this.route.queryParams.subscribe(params => {
+      const date = params['date'];
+      if (date) {
+        const startDate = date + 'T09:00';
+        this.form.startDate = startDate;
+
+        const endDate = date + 'T17:00';
+        this.form.endDate = endDate;
+
+      }
+    });
   }
 
   loadDropdowns() {
@@ -67,12 +82,15 @@ export class NewBookingComponentComponent {
   }
 
   submit(): void {
-
+    // แปลง string → Js Date object
+    const startDate = new Date(this.form.startDate);
+    const endDate = new Date(this.form.endDate);
+    const now = new Date();
     // validation 
     if (!this.form.title || !this.form.vehicleId || !this.form.purpose || !this.form.origin || !this.form.destination || !this.form.tripType || !this.form.startDate || !this.form.endDate) {
       Swal.fire({
         icon: 'warning',
-        title: 'กรุณากรอกข้อมูลให้ครบ',
+        title: 'กรุณากรอกข้อมูลให้ครบทุกช่องที่มี *',
         showConfirmButton: true,
         confirmButtonText: 'OK'
       });
@@ -82,28 +100,45 @@ export class NewBookingComponentComponent {
     if (this.form.tripType === 'multi-stop' && this.form.stops.length === 0) {
       Swal.fire({
         icon: 'warning',
-        title: 'Multi-stop ต้องมี stops(จุดแวะระหว่างทาง)',
+        title: 'กรุณาเพิ่มจุดแวะอย่างน้อย 1 จุด สำหรับการเดินทางแบบ Multi-stop',
         showConfirmButton: true,
         confirmButtonText: 'OK'
       });
       return;
     }
 
-    if (this.form.startDate > this.form.endDate) {
+    
+    if (startDate < now) {
       Swal.fire({
         icon: 'warning',
-        title: 'วันที่เริ่มต้นต้องน้อยกว่าวันที่สิ้นสุด',
+        title: 'ไม่สามารถเลือกวันก่อนปัจจุบันได้',
+        text: 'วันที่เลือกต้องตั้งแต่วันปัจจุบันเป็นต้นไป',
         showConfirmButton: true,
         confirmButtonText: 'OK'
       });
       return;
     }
+
+    if (startDate > endDate) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'วันที่เริ่มต้นต้องน้อยกว่าวันที่สิ้นสุด',
+        text: `กรุณาตรวจสอบวันเริ่มต้น ${startDate.toLocaleString()} และวันสิ้นสุด`,
+        showConfirmButton: true,
+        confirmButtonText: 'OK'
+      });
+      return;
+    }
+
+
 
     // convert date
     const payload = {
       ...this.form,
-      startDate: new Date(this.form.startDate),
-      endDate: new Date(this.form.endDate)
+      
+      startDate: startDate, 
+      endDate: endDate, 
+      
     };
 
     this.loading = true;
@@ -119,6 +154,7 @@ export class NewBookingComponentComponent {
           Swal.fire({
             icon: 'success',
             title: 'สร้าง Booking สำเร็จ',
+            text: `จองตั้งแต่ ${startDate.toLocaleString()} ถึง ${endDate.toLocaleString()}`,
             showConfirmButton: true,
             confirmButtonText: 'OK'
           }).then(() => {
