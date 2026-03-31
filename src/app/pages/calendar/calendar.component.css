@@ -58,6 +58,15 @@ full-calendar {
 .card-header {
   border-bottom: 0;
   background: linear-gradient(
+    130deg,
+    rgba(7, 48, 137, 0.92),
+    rgba(90, 111, 135, 0.92)
+  ),
+  radial-gradient(
+    rgba(255, 255, 255, 0.35),
+    transparent 55%
+  );
+  /* background: linear-gradient(
       130deg,
       rgba(238, 120, 34, 0.92),
       rgba(90, 111, 135, 0.92)
@@ -65,7 +74,8 @@ full-calendar {
     radial-gradient(
       rgba(255, 255, 255, 0.35),
       transparent 55%
-    );
+    ); */
+    
 }
 
 .close-btn {
