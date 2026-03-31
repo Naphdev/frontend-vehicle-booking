@@ -85,9 +85,10 @@ export class NewBookingComponentComponent {
     // แปลง string → Js Date object
     const startDate = new Date(this.form.startDate);
     const endDate = new Date(this.form.endDate);
-    const now = new Date();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
     // validation 
-    if (!this.form.title || !this.form.vehicleId || !this.form.purpose || !this.form.origin || !this.form.destination || !this.form.tripType || !this.form.startDate || !this.form.endDate) {
+    if (!this.form.title || !this.form.vehicleId || !this.form.purpose || !this.form.origin || !this.form.destination || !this.form.tripType || !this.form.startDate || !this.form.endDate || !this.form.bookedByUserId) {
       Swal.fire({
         icon: 'warning',
         title: 'กรุณากรอกข้อมูลให้ครบทุกช่องที่มี *',
@@ -108,7 +109,7 @@ export class NewBookingComponentComponent {
     }
 
     
-    if (startDate < now) {
+    if (startDate < today) {
       Swal.fire({
         icon: 'warning',
         title: 'ไม่สามารถเลือกวันก่อนปัจจุบันได้',
@@ -119,7 +120,7 @@ export class NewBookingComponentComponent {
       return;
     }
 
-    if (startDate > endDate) {
+    if (startDate >= endDate) {
       Swal.fire({
         icon: 'warning',
         title: 'วันที่เริ่มต้นต้องน้อยกว่าวันที่สิ้นสุด',
@@ -167,8 +168,10 @@ export class NewBookingComponentComponent {
           Swal.fire({
             icon: 'error',
             title: 'เกิดข้อผิดพลาด',
-            showConfirmButton: false,
-            timer: 1500
+            text: err?.error?.message || 'ไม่สามารถสร้าง Booking ได้',
+            showConfirmButton: true,
+            confirmButtonText: 'OK',
+            width: '550px'
           });
         }
       });

@@ -192,6 +192,24 @@
                 </div>
               </div>
 
+              <div class="d-flex align-items-start gap-2">
+                <div class="bg-light px-2 border rounded">
+                  <i class="fas fa-pen"></i>
+                </div>
+                <div>
+                  <div><strong>Purpose</strong></div>
+                  <div *ngIf="!isEditMode">
+                    {{ booking.purpose }}
+                  </div>
+                  <textarea
+                    *ngIf="isEditMode"
+                    class="form-control"
+                    [(ngModel)]="editForm.purpose"
+                  ></textarea>
+                </div>
+              </div>
+
+
               <div class="d-flex align-items-start gap-3">
                 <!-- Icon -->
                 <div

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable, of, catchError } from "rxjs";
+import { Observable, of, catchError, throwError } from "rxjs";
 
 import { Booking, TripType, BookingStatus } from "../models/booking.model";
 import { Vehicle, VehicleStatus } from "../models/vehicle.model";
@@ -338,7 +338,7 @@ export class VehicleBookingService {
       map(res => res),
       catchError(err => {
         console.log("VehicleBookingService[createBooking]: ", err);
-        return of(err);
+        return throwError(() => err);
       })
     );
   }
