@@ -357,7 +357,7 @@ export class VehicleBookingService {
       map(res => res),
       catchError(err => {
         console.log("VehicleBookingService[updateBooking]: ", err);
-        return of(err);
+        return throwError(() => err);
       })
     );
   }

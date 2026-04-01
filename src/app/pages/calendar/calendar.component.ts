@@ -356,14 +356,23 @@ export class CalendarComponent implements OnInit {
             this.loadBookingEvents();
 
             this.isEditMode = false;
+            Swal.fire({
+              icon: 'success',
+              title: 'Success',
+              text: 'การแก้ไขสำเร็จ'
+            });
+        
 
           },
           error: (err) => {
             console.error('Update failed:', err);
             Swal.fire({
               icon: 'error',
-              title: 'Error',
-              text: 'Update failed'
+              title: 'เกิดข้อผิดพลาด',
+              text: err?.error?.message || 'ไม่สามารถสร้าง Booking ได้',
+              showConfirmButton: true,
+              confirmButtonText: 'OK',
+              width: '550px'
             });
           }
         });
