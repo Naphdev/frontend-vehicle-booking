@@ -6,7 +6,8 @@ import { Injectable } from "@angular/core";
 export class ConfigurationService {
 
   public Config = {
-    baseApi: "http://localhost:3000/",
+    // baseApi: "http://localhost:3000/",
+    baseApi: "https://vehicle-booking-wcjd.onrender.com/",
     apiVersion: "v1"
   };
 
