@@ -63,15 +63,18 @@ export class CalendarComponent implements OnInit {
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-    headerToolbar: window.innerWidth < 768
-      ? { left: 'prev,next', center: 'title', right: 'today' }
-      : { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,timeGridDay' },
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    },
     initialDate: new Date(),
     navLinks: true,
     // editable: true,
     dayMaxEvents: true,
     weekends: true,
-    height: window.innerWidth < 768 ? 'parent' : 'auto',
+    // height: window.innerWidth < 768 ? 'parent' : 'auto',
+    height: 'auto',
     eventClick: (info) => this.handleEventClick(info),
     dateClick: this.handleDateClick.bind(this),
     // eventDrop: (info) => this.handleEventDrop(info),
