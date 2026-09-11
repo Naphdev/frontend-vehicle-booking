@@ -153,13 +153,13 @@ full-calendar {
   .calendar-container {
     padding: 8px;
     flex: 1;
-    margin-top: 20px;
+    margin-top: 5px;
   }
 
   full-calendar {
     flex: 1;
     min-height: 0;
-    margin-top: 40px;
+    margin-top: 8px;
     margin-left: 0;
     padding: 8px;
     max-height: 100vh;
