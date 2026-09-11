@@ -56,3 +56,37 @@ body.modal-open {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@media (max-width: 768px) {
+  app-root {
+    display: block;
+    height: 100%;
+  }
+
+  body {
+    line-height: 1.5 !important;
+  }
+
+  .fc,
+  .fc .fc-view-harness {
+    height: 100%;
+  }
+
+  .fc .fc-toolbar.fc-header-toolbar {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .fc .fc-toolbar-title {
+    font-size: 1.15em !important;
+  }
+
+  .fc .fc-button {
+    padding: 0.25em 0.45em;
+    font-size: 0.8em;
+  }
+
+  .swal2-popup {
+    width: 90% !important;
+  }
+}

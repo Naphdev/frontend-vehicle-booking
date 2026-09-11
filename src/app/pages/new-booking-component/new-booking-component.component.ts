@@ -171,7 +171,7 @@ export class NewBookingComponentComponent {
             text: err?.error?.message || 'ไม่สามารถสร้าง Booking ได้',
             showConfirmButton: true,
             confirmButtonText: 'OK',
-            width: '550px'
+            width: window.innerWidth < 768 ? '90%' : '550px'
           });
         }
       });

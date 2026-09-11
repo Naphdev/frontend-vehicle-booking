@@ -34,7 +34,7 @@
 }
 /* ======= */
 @media (max-width: 768px) {
-  .sidebar {
+  :host {
     display: none;
   }
 }
