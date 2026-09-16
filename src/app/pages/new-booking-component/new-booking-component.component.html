@@ -157,6 +157,7 @@
             type="datetime-local"
             class="form-control"
             [(ngModel)]="form.startDate"
+            (ngModelChange)="filterAvailable()"
             name="startDate"
             required
           />
@@ -168,6 +169,7 @@
             type="datetime-local"
             class="form-control"
             [(ngModel)]="form.endDate"
+            (ngModelChange)="filterAvailable()"
             name="endDate"
             required
           />

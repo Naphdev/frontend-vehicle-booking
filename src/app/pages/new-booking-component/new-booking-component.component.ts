@@ -41,9 +41,12 @@ export class NewBookingComponentComponent {
 
   loading: boolean = false;
 
+  allVehicles: any[] = [];
+  allDrivers: any[] = [];
   vehicles: any[] = [];
   drivers: any[] = [];
   users: any[] = [];
+  bookings: any[] = [];
 
   ngOnInit() {
     this.loadDropdowns();
@@ -57,14 +60,63 @@ export class NewBookingComponentComponent {
         const endDate = date + 'T17:00';
         this.form.endDate = endDate;
 
+        this.filterAvailable();
       }
     });
   }
 
   loadDropdowns() {
-    this.bookingService.getVehicles().subscribe(res => this.vehicles = res?.data || []);
-    this.bookingService.getDrivers().subscribe(res => this.drivers = res?.data || []);
+    this.bookingService.getVehicles().subscribe(res => {
+      this.allVehicles = res?.data || [];
+      this.filterAvailable();
+    });
+    this.bookingService.getDrivers().subscribe(res => {
+      this.allDrivers = res?.data || [];
+      this.filterAvailable();
+    });
     this.bookingService.getUsers().subscribe(res => this.users = res?.data || []);
+    this.bookingService.getBookings().subscribe(res => {
+      this.bookings = res?.data || [];
+      this.filterAvailable();
+    });
+  }
+
+  filterAvailable() {
+    const start = this.form.startDate ? new Date(this.form.startDate) : null;
+    const end = this.form.endDate ? new Date(this.form.endDate) : null;
+    const hasRange = !!(start && end && !isNaN(start.getTime()) && !isNaN(end.getTime()) && start < end);
+
+    if (!hasRange) {
+      this.vehicles = this.allVehicles;
+      this.drivers = this.allDrivers;
+      return;
+    }
+
+    const overlapping = this.bookings.filter((b: any) => {
+      if (b.status === 'cancelled') return false;
+      const bStart = new Date(b.startDate);
+      const bEnd = new Date(b.endDate);
+      return bStart < end && bEnd > start;
+    });
+
+    const busyVehicleIds = new Set(
+      overlapping.map((b: any) => b.vehicleId?.id || b.vehicleId?._id || b.vehicleId)
+    );
+    const busyDriverIds = new Set(
+      overlapping
+        .map((b: any) => b.driverId?.id || b.driverId?._id || b.driverId)
+        .filter((id: any) => !!id)
+    );
+
+    this.vehicles = this.allVehicles.filter((v: any) => !busyVehicleIds.has(v.id));
+    this.drivers = this.allDrivers.filter((d: any) => !busyDriverIds.has(d.id));
+
+    if (this.form.vehicleId && !this.vehicles.some((v: any) => v.id === this.form.vehicleId)) {
+      this.form.vehicleId = null;
+    }
+    if (this.form.driverId && !this.drivers.some((d: any) => d.id === this.form.driverId)) {
+      this.form.driverId = null;
+    }
   }
 
   addStop() {
