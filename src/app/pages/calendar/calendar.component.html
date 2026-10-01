@@ -5,106 +5,80 @@
   <div class="main-content">
     <div class="calendar-container">
       <div class="calendar-legend d-flex gap-3 mb-3 justify-content-between flex-wrap">
-        <div class="d-flex gap-3 flex-wrap">
-          <div class="legend-item">
-            <span class="legend-dot pending"></span>
-            Pending
-          </div>
 
-          <div class="legend-item">
-            <span class="legend-dot approved"></span>
-            Approved
+        <div>
+          <div class="calendar-header mb-3">
+            <h2 class="mb-0">Vehicle Booking Calendar</h2>
           </div>
+          <div class="d-flex gap-2 gap-lg-4">
+            <div class="legend-item">
+              <span class="legend-dot pending"></span>
+              Pending
+            </div>
 
-          <div class="legend-item">
-            <span class="legend-dot cancelled"></span>
-            Cancelled
-          </div>
+            <div class="legend-item">
+              <span class="legend-dot approved"></span>
+              Approved
+            </div>
 
-          <div class="legend-item">
-            <span class="legend-dot completed"></span>
-            Completed
+            <div class="legend-item">
+              <span class="legend-dot cancelled"></span>
+              Cancelled
+            </div>
+
+            <div class="legend-item">
+              <span class="legend-dot completed"></span>
+              Completed
+            </div>
           </div>
         </div>
 
         <div>
-          <button
-            class="btn btn-secondary btn-new-event"
-            (click)="goToNewEvent()"
-          >
+          <button class="btn btn-secondary btn-new-event" (click)="goToNewEvent()">
             Add Booking
           </button>
         </div>
       </div>
 
-      <full-calendar
-        #calendar
-        [options]="calendarOptions"
-        [deepChangeDetection]="true"
-      ></full-calendar>
+      <full-calendar #calendar [options]="calendarOptions" [deepChangeDetection]="true"></full-calendar>
 
-      
+
       <!-- Overlay -->
       <div class="custom-modal-backdrop" *ngIf="selectedBooking as booking">
         <div class="custom-modal-card shadow-lg">
-          <div
-            class="card-header p-4 text-white d-flex justify-content-between align-items-start position-relative"
-          >
+          <div class="card-header p-4 text-white d-flex justify-content-between align-items-start position-relative">
             <div>
               <!-- Title -->
               <h2 *ngIf="!isEditMode">{{ booking.title }}</h2>
 
-              <input
-                *ngIf="isEditMode"
-                class="form-control"
-                [(ngModel)]="editForm.title"
-              />
+              <input *ngIf="isEditMode" class="form-control" [(ngModel)]="editForm.title" />
               <p>Booking ID: {{ booking.bookingNumber }}</p>
 
               <!-- Status -->
-              <div
-                *ngIf="!isEditMode"
-                class="bg-light p-2 rounded-5 d-inline-block"
-                [ngClass]="statusConfig[booking.status].class"
-              >
+              <div *ngIf="!isEditMode" class="bg-light p-2 rounded-5 d-inline-block"
+                [ngClass]="statusConfig[booking.status].class">
                 <span class="status-dot"></span>
                 {{ booking.status }}
               </div>
-              <select
-                *ngIf="isEditMode"
-                class="form-select"
-                [(ngModel)]="editForm.status"
-              >
+              <select *ngIf="isEditMode" class="form-select" [(ngModel)]="editForm.status">
                 <option *ngFor="let status of statusList" [ngValue]="status">
                   {{ status }}
                 </option>
               </select>
 
               <!-- Trip Type -->
-              <div
-                *ngIf="!isEditMode"
-                class="bg-light p-2 rounded-5 text-dark d-inline-block ms-2"
-              >
+              <div *ngIf="!isEditMode" class="bg-light p-2 rounded-5 text-dark d-inline-block ms-2">
                 {{ booking.tripType }}
               </div>
-              <select
-                *ngIf="isEditMode"
-                class="form-select mt-2"
-                [(ngModel)]="editForm.tripType"
-              >
-                <option
-                  *ngFor="let tripType of tripTypeList"
-                  [ngValue]="tripType"
-                >
+              <select *ngIf="isEditMode" class="form-select mt-2" [(ngModel)]="editForm.tripType">
+                <option *ngFor="let tripType of tripTypeList" [ngValue]="tripType">
                   {{ tripType }}
                 </option>
               </select>
             </div>
 
-            <button
-              class="btn-close btn-close-white my-auto position-absolute top-1 end-0 m-3"
-              (click)="closeModal()"
-            ></button>
+            <button class="btn-close btn-close-white my-auto position-absolute top-1 end-0 m-3"
+              (click)="closeModal()"></button>
           </div>
 
           <div class="card-body m-4" *ngIf="selectedVehicle">
@@ -121,11 +95,7 @@
                     {{ selectedVehicle.licensePlate }}
                   </div>
 
-                  <select
-                    *ngIf="isEditMode"
-                    [(ngModel)]="editForm.vehicleId"
-                    class="form-select"
-                  >
+                  <select *ngIf="isEditMode" [(ngModel)]="editForm.vehicleId" class="form-select">
                     <option [ngValue]="null">-- No Vehicle --</option>
                     <option *ngFor="let v of vehicles" [ngValue]="v.id">
                       {{ v.brand }} {{ v.model }} {{ v.licensePlate }}
@@ -146,11 +116,7 @@
                         {{ selectedDriver?.name || "No driver assigned" }}
                       </div>
 
-                      <select
-                        *ngIf="isEditMode"
-                        class="form-select"
-                        [(ngModel)]="editForm.driverId"
-                      >
+                      <select *ngIf="isEditMode" class="form-select" [(ngModel)]="editForm.driverId">
                         <option [ngValue]="null">-- No Driver --</option>
 
                         <option *ngFor="let d of drivers" [ngValue]="d.id">
@@ -160,16 +126,10 @@
                     </div>
                   </div>
 
-                  <div
-                    class="bg-light px-2 pt-2 border rounded text-center shadow-sm"
-                    *ngIf="selectedDriver?.qrcodeUrl"
-                  >
-                    <img
-                      [src]="selectedDriver?.qrcodeUrl"
-                      alt="Driver QR Code"
-                      class="img-fluid"
-                      style="max-width: 50px; max-height: 50px"
-                    />
+                  <div class="bg-light px-2 pt-2 border rounded text-center shadow-sm"
+                    *ngIf="selectedDriver?.qrcodeUrl">
+                    <img [src]="selectedDriver?.qrcodeUrl" alt="Driver QR Code" class="img-fluid"
+                      style="max-width: 50px; max-height: 50px" />
                     <div class="d-flex align-items-center small text-muted">
                       <i class="fas fa-qrcode"></i>
                       <div>contact</div>
@@ -186,7 +146,7 @@
                   <div><strong>Booked By</strong></div>
                   <div>
                     {{ selectedBookedByUser?.name || "No user assigned" }} ({{
-                      selectedBookedByUser?.phone || ""
+                    selectedBookedByUser?.phone || ""
                     }})
                   </div>
 
@@ -202,21 +162,15 @@
                   <div *ngIf="!isEditMode">
                     {{ booking.purpose }}
                   </div>
-                  <textarea
-                    *ngIf="isEditMode"
-                    class="form-control"
-                    [(ngModel)]="editForm.purpose"
-                  ></textarea>
+                  <textarea *ngIf="isEditMode" class="form-control" [(ngModel)]="editForm.purpose"></textarea>
                 </div>
               </div>
 
 
               <div class="d-flex align-items-start gap-3">
                 <!-- Icon -->
-                <div
-                  class="bg-light border rounded d-flex align-items-center justify-content-center"
-                  style="width: 32px; height: 32px"
-                >
+                <div class="bg-light border rounded d-flex align-items-center justify-content-center"
+                  style="width: 32px; height: 32px">
                   <i class="fas fa-map-marker-alt"></i>
                 </div>
 
@@ -225,24 +179,16 @@
                     Route ({{ booking.tripType }})
                   </div>
                   <div *ngIf="!isEditMode">
-                    <div
-                      *ngFor="let stop of processedStops; index as i"
-                      class="d-flex align-items-start gap-3"
-                    >
+                    <div *ngFor="let stop of processedStops; index as i" class="d-flex align-items-start gap-3">
                       <div class="d-flex flex-column align-items-center">
                         <div
                           class="bg-light border border-2 rounded-circle d-flex align-items-center justify-content-center fw-semibold"
-                          [ngClass]="stop.borderClass"
-                          style="width: 32px; height: 32px"
-                        >
+                          [ngClass]="stop.borderClass" style="width: 32px; height: 32px">
                           {{ i + 1 }}
                         </div>
 
-                        <div
-                          *ngIf="i < (processedStops.length || 0) - 1"
-                          class="bg-secondary opacity-25 mt-1"
-                          style="width: 2px; height: 30px"
-                        ></div>
+                        <div *ngIf="i < (processedStops.length || 0) - 1" class="bg-secondary opacity-25 mt-1"
+                          style="width: 2px; height: 30px"></div>
                       </div>
 
                       <div class="flex-fill">
@@ -260,53 +206,30 @@
                   <div *ngIf="isEditMode">
                     <div *ngIf="editForm.tripType !== TripType.MultiStop">
                       <div class="small text-muted fw-semibold">Origin</div>
-                      <input
-                        class="form-control"
-                        [(ngModel)]="editForm.origin"
-                        name="origin"
-                      />
+                      <input class="form-control" [(ngModel)]="editForm.origin" name="origin" />
 
                       <div class="small text-muted fw-semibold mt-2">
                         Destination
                       </div>
-                      <input
-                        class="form-control mt-1"
-                        [(ngModel)]="editForm.destination"
-                        name="destination"
-                      />
+                      <input class="form-control mt-1" [(ngModel)]="editForm.destination" name="destination" />
                     </div>
 
                     <div *ngIf="editForm.tripType === TripType.MultiStop">
-                      <div
-                        *ngFor="let stop of editForm.stops; index as i"
-                        class="d-flex align-items-center gap-3 mb-2"
-                      >
+                      <div *ngFor="let stop of editForm.stops; index as i" class="d-flex align-items-center gap-3 mb-2">
                         <div class="fw-bold">{{ i + 1 }}</div>
 
                         <!-- input -->
-                        <input
-                          class="form-control"
-                          [(ngModel)]="stop.name"
-                          name="stop{{ i }}"
-                          placeholder="Enter stop name"
-                        />
+                        <input class="form-control" [(ngModel)]="stop.name" name="stop{{ i }}"
+                          placeholder="Enter stop name" />
 
                         <!-- delete -->
-                        <button
-                          type="button"
-                          class="btn btn-danger btn-sm"
-                          (click)="removeStop(i)"
-                        >
+                        <button type="button" class="btn btn-danger btn-sm" (click)="removeStop(i)">
                           ✕
                         </button>
                       </div>
 
                       <!-- add -->
-                      <button
-                        type="button"
-                        class="btn btn-outline-primary btn-sm mt-2"
-                        (click)="addStop()"
-                      >
+                      <button type="button" class="btn btn-outline-primary btn-sm mt-2" (click)="addStop()">
                         + Add Stop
                       </button>
                     </div>
@@ -327,8 +250,8 @@
                       <span class="small text-muted fw-semibold">Start</span>
                       <span>
                         {{
-                          booking.startDate
-                            | date: "dd MMM yyyy HH:mm" : "+0700"
+                        booking.startDate
+                        | date: "dd MMM yyyy HH:mm" : "+0700"
                         }}
                       </span>
                     </div>
@@ -339,7 +262,7 @@
                       <span class="small text-muted fw-semibold">End</span>
                       <span>
                         {{
-                          booking.endDate | date: "dd MMM yyyy HH:mm" : "+0700"
+                        booking.endDate | date: "dd MMM yyyy HH:mm" : "+0700"
                         }}
                       </span>
                     </div>
@@ -353,24 +276,15 @@
                     <!-- Start -->
                     <div class="d-flex flex-column">
                       <label class="small text-muted fw-semibold">Start</label>
-                      <input
-                        type="datetime-local"
-                        class="form-control"
-                        [(ngModel)]="editForm.startDate"
-                        name="startDate"
-                      />
+                      <input type="datetime-local" class="form-control" [(ngModel)]="editForm.startDate"
+                        name="startDate" />
                     </div>
 
                     <!-- End -->
                     <div class="d-flex flex-column">
                       <label class="small text-muted fw-semibold">End</label>
-                      <input
-                        type="datetime-local"
-                        class="form-control"
-                        [(ngModel)]="editForm.endDate"
-                        name="endDate"
-                        [min]="editForm.startDate"
-                      />
+                      <input type="datetime-local" class="form-control" [(ngModel)]="editForm.endDate" name="endDate"
+                        [min]="editForm.startDate" />
                     </div>
                   </div>
                 </div>
@@ -379,27 +293,15 @@
           </div>
 
           <div class="card-footer text-end mb-2 p-4">
-            <button
-              class="btn btn-warning me-2"
-              *ngIf="!isEditMode"
-              (click)="enableEdit()"
-            >
+            <button class="btn btn-warning me-2" *ngIf="!isEditMode" (click)="enableEdit()">
               Edit
             </button>
 
-            <button
-              class="btn btn-success me-2"
-              *ngIf="isEditMode"
-              (click)="saveEdit()"
-            >
+            <button class="btn btn-success me-2" *ngIf="isEditMode" (click)="saveEdit()">
               Save
             </button>
 
-            <button
-              class="btn btn-secondary me-2"
-              *ngIf="isEditMode"
-              (click)="cancelEdit()"
-            >
+            <button class="btn btn-secondary me-2" *ngIf="isEditMode" (click)="cancelEdit()">
               Cancel
             </button>
 
@@ -407,10 +309,7 @@
               Delete
             </button>
 
-            <button
-              class="btn btn-secondary me-2 close-btn"
-              (click)="closeModal()"
-            >
+            <button class="btn btn-secondary me-2 close-btn" (click)="closeModal()">
               Close
             </button>
           </div>

@@ -4,6 +4,18 @@
   margin-top: 20px;
 }
 
+.calendar-header {
+  margin-bottom: 16px !important;
+}
+
+.calendar-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+  letter-spacing: -0.3px;
+}
+
 .custom-modal-backdrop {
   position: fixed;
   top: 0;
