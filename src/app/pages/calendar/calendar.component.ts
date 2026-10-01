@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { FullCalendarComponent } from '@fullcalendar/angular';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -19,7 +20,9 @@ import Swal from 'sweetalert2';
 })
 
 
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('calendar') calendar!: FullCalendarComponent;
   vehicles: Vehicle[] = [];
   drivers: Driver[] = [];
   users: any[] = [];
@@ -62,6 +65,10 @@ export class CalendarComponent implements OnInit {
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
+
+    handleWindowResize: true,
+    windowResizeDelay: 100,
+    
     plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
     headerToolbar: {
       left: 'prev,next today',
@@ -90,6 +97,12 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
     this.loadInitialData();
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.calendar?.getApi().updateSize();
+    }, 300);
   }
 
   loadInitialData() {
@@ -124,6 +137,10 @@ export class CalendarComponent implements OnInit {
       }));
 
       this.calendarOptions.events = events;
+
+      setTimeout(() => {
+        this.calendar?.getApi().updateSize();
+      }, 100);
 
     });
   }
